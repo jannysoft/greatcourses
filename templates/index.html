@@ -1,0 +1,64 @@
+{{template "header" .}}
+<section class="container grid-lg">
+    <div class="columns">
+    {{range .Courses}}
+        <div class="column col-4 col-xs-12 col-sm-12 col-md-6">
+            <div class="card">
+                <div class="card-image card-image-margin">
+                    <img src="{{.FrontIMG}}" class="img-responsive" alt="{{.Title}}" />
+                </div>
+                <div class="card-header">
+                    <h4 class="card-title"><a href="/course/{{.ID}}/{{.PrettyURL}}/" class="cardtitle"><b>{{.Title}}</b></a></h4>
+                </div>
+
+                <div class="card-body">
+                    <h6><i class="fa fa-language mr-5 purple" aria-hidden="true"></i>  <b>{{.Language}}</b></h6>
+                    {{if .CatSlug}}
+                        <h6><i class="fa fa-folder-o mr-5 purple" aria-hidden="true"></i><a class="cardcatslug" href="/category/{{.CatSlug}}"><b>{{.Category}}</b></a></h6>
+                    {{else}}
+                        <h6><i class="fa fa-folder-o mr-5 purple" aria-hidden="true"></i><b>{{.Category}}</b></h6>
+                    {{end}}
+                </div>
+                <div class="card-footer">
+                    <label class="chip float-right">
+                        <span class="mr-10 oprice"><del>${{.OriginalPrice}}</del> </span>
+                    {{if eq .CurrentPrice "0"}}
+                        <b>FREE</b>
+                    {{else}}
+                        <b>${{.CurrentPrice}}</b>
+                    {{end}}
+                    </label>
+                    <a href="/course/{{.ID}}/{{.PrettyURL}}/" class="btn btn-dark">ENROLL NOW</a>
+                </div>
+            </div>
+        </div>
+    {{end}}
+        <div class="navbar whitebg column cm-12">
+            <ul class="pagination centered">
+                <li class="page-item disabled">
+                    <a href="#" tabindex="-1">Previous</a>
+                </li>
+                <li class="page-item active">
+                    <a href="#">1</a>
+                </li>
+                <li class="page-item">
+                    <a href="/page/2">2</a>
+                </li>
+                <li class="page-item">
+                    <a href="/page/3">3</a>
+                </li>
+                <li class="page-item">
+                    <span>...</span>
+                </li>
+                <li class="page-item">
+                    <a href="/page/{{.Paging.TotalPages}}">{{.Paging.TotalPages}}</a>
+                </li>
+                <li class="page-item">
+                    <a href="/page/2">Next</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+{{template "footer"}}

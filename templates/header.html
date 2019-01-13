@@ -1,0 +1,40 @@
+{{define "header"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>{{.Title}}</title>
+    <meta name="description" content="{{.Description}}" />
+    <link rel="canonical" href="{{.Canonical}}" />
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="/css/main.css" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
+
+    {{if ne .GoToUrl ""}}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@greatcoursesco" />
+    <meta name="twitter:title" content="{{.Title}}" />
+    <meta name="twitter:description" content="{{.Description}}" />
+    <meta name="twitter:image" content="{{.Course.PostIMG}}" />
+    <meta name="twitter:image:alt" content="{{.Title}}" />
+    {{end}}
+
+</head>
+<body>
+
+<header class="navbar headerbg">
+    <div class="container grid-lg">
+        <section class="navbar-section float-left mt-2">
+            <a href="/" class="navbar-brand logotitle">GREATCOURSES.<span class="purple">CO</span> </a>
+        </section>
+        <section class="navbar-section">
+            <form action="/result" class="input-group input-inline mt-2" method="post">
+                    <input class="form-input" type="text" name="search" placeholder="search">
+                    <button class="btn btn-primary input-group-btn" type="submit">Search</button>
+            </form>
+        </section>
+    </div>
+</header>
+
+{{end}}

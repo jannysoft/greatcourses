@@ -1,0 +1,147 @@
+{{template "header" .}}
+<article class="container grid-lg">
+    <div class="columns whitebg">
+        <div class="column col-12">
+            <h1 class="text-bold mb-10"><i class="fa fa-chevron-down purple" aria-hidden="true"></i> {{.Course.Title}}</h1>
+            <h2 class="pb-5 bb">{{.Course.Description}}</h2>
+        </div>
+        <div class="column col-6 col-xs-12 col-sm-12 text-center">
+            <div class="column">
+
+                <label class=" label mr-10 oprice sprice">
+                    <del>
+                        ${{.Course.OriginalPrice}}
+                    </del>
+                </label>
+
+            {{if eq .Course.CurrentPrice "0"}}
+                <label class="label label-primary mr-10 sprice">
+                FREE Course
+                </label>
+            {{else}}
+                <label class="label label-primary sprice">
+                    $ {{.Course.CurrentPrice}}
+                </label>
+            {{end}}
+
+            </div>
+            <div class="column text-large">
+                <i class="fa fa-language mr-5 purple" aria-hidden="true"></i> <b>{{.Course.Language}}</b>
+                <i class="fa fa-folder-o ml-10 mr-5 purple" aria-hidden="true"></i> <b>{{.Course.Category}}</b>
+            </div>
+            <div class="column text-large hide-xs hide-sm hide-md">
+                <i class="fa fa-star-o mr-5 purple" aria-hidden="true"></i> <b>{{.Course.Rating}}</b>
+                <i class="fa fa-graduation-cap ml-10 mr-5 purple" aria-hidden="true"></i> <b>{{.Course.Enrolled}}</b>
+            </div>
+
+            <div class="column mt-40">
+                <a href="{{.GoToUrl}}" class="coursebtn" target="_blank">ENROLL NOW</a>
+            </div>
+        </div>
+
+        <div class="column col-6 col-xs-12 col-sm-12">
+            <img src="{{.Course.PostIMG}}" class="img-responsive" alt="{{.Course.Title}}" />
+        </div>
+
+        <div class="column col-12 hide-xs hide-sm hide-md">
+        {{if .Course.WillLearn}}
+            <div class="divider text-center" data-content="COURSE INFORMATION"></div>
+
+        {{range .Course.WillLearn}}
+            <p><i class="fa fa-circle-o purple mr-5" aria-hidden="true"></i> {{.}}</p>
+        {{end}}
+        {{end}}
+        </div>
+    </div>
+</article>
+
+<section class="container grid-lg">
+    <div class="columns">
+    {{range .Related}}
+        <div class="column col-4 col-xs-12 col-sm-12 col-md-6">
+            <div class="card">
+                <div class="card-image card-image-margin">
+                    <img src="{{.FrontIMG}}" class="img-responsive" alt="{{.Title}}" />
+                </div>
+                <div class="card-header">
+                    <h4 class="card-title"><a href="/course/{{.ID}}/{{.PrettyURL}}/" class="cardtitle"><b>{{.Title}}</b></a></h4>
+                </div>
+
+                <div class="card-body">
+                    <h6><i class="fa fa-language mr-5 purple" aria-hidden="true"></i>  <b>{{.Language}}</b></h6>
+                {{if .CatSlug}}
+                    <h6><i class="fa fa-folder-o mr-5 purple" aria-hidden="true"></i><a class="cardcatslug" href="/category/{{.CatSlug}}"><b>{{.Category}}</b></a></h6>
+                {{else}}
+                    <h6><i class="fa fa-folder-o mr-5 purple" aria-hidden="true"></i><b>{{.Category}}</b></h6>
+                {{end}}
+                </div>
+                <div class="card-footer">
+                    <label class="chip float-right">
+                        <span class="mr-10 oprice"><del>${{.OriginalPrice}}</del> </span>
+                    {{if eq .CurrentPrice "0"}}
+                        <b>FREE</b>
+                    {{else}}
+                        <b>${{.CurrentPrice}}</b>
+                    {{end}}
+                    </label>
+                    <a href="/course/{{.ID}}/{{.PrettyURL}}/" class="btn btn-dark">ENROLL NOW</a>
+                </div>
+            </div>
+        </div>
+    {{end}}
+    </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Product",
+  "name": "{{.Course.Title}}",
+  "image": "{{.Course.PostIMG}}",
+  "description": "{{.Course.Description}}",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{{.Course.Rating}}",
+    "reviewCount": "{{.Course.Enrolled}}"
+  },
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "price": "{{.Course.CurrentPrice}}",
+    "seller": {
+      "@type": "Organization",
+      "name": "UDEMY"
+    }
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "item": {
+      "@id": "https://example.com/education",
+      "name": "Education"
+    }
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "item": {
+      "@id": "https://example.com/education/courses",
+      "name": "Courses"
+      }
+    },{
+    "@type": "ListItem",
+    "position": 3,
+    "item": {
+      "@id": "https://example.com/education/courses/udemy-course",
+      "name": "Udemy Course"
+      }
+  }]
+}
+</script>
+{{template "footer"}}
